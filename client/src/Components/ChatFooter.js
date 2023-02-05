@@ -3,8 +3,15 @@ import React, { useState } from 'react';
 const ChatFooter = ({ socket }) => {
   const [message, setMessage] = useState('');
 
-  const handleTyping = () =>
-    socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
+  const handleTyping = () =>{
+    if(message){
+      socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
+    }
+    if(message === ""){
+      socket.emit('typing', ``);
+    }
+  }
+    
 
   const handleSendMessage = (e) => {
     e.preventDefault();
